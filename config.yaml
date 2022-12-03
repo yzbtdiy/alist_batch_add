@@ -1,0 +1,6 @@
+auth:
+  password: PASSWORD
+  username: USERNAME
+refresh_token: ALI_YUNPAN_REFRESH_TOKEN
+token: ALIST_TOKEN
+url: ALIST_URL
