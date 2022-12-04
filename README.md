@@ -15,6 +15,8 @@
 
 [Bilibili视频介绍](https://www.bilibili.com/video/BV1kP4y197xm)
 
+**脚本目录执行`pip install -r requirements.txt`即可安装依赖(requests和pyyaml)**
+
 * 编辑 config.yaml 文件
   * 在 url 字段添加 alist 地址
   * 在 auth 后的 username 和 password 字段添加 alist 登录账号和密码
