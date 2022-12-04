@@ -13,6 +13,8 @@
 
 ### 用法说明
 
+[Bilibili视频介绍](https://www.bilibili.com/video/BV1kP4y197xm)
+
 * 编辑 config.yaml 文件
   * 在 url 字段添加 alist 地址
   * 在 auth 后的 username 和 password 字段添加 alist 登录账号和密码
