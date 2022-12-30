@@ -1,5 +1,7 @@
 ## Alist 资源批量添加
 
+**推荐使用基于 Golang 的新版本[https://github.com/yzbtdiy/alist_batch](https://github.com/yzbtdiy/alist_batch)**
+
 **自用, Python 自学的练习项目**
 
 **此脚测试环境为 Python 3.11, Alist v3.5.1**
