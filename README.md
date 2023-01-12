@@ -26,9 +26,9 @@
   * 在 auth 后的 username 和 password 字段添加 alist 登录账号和密码
   * 在 refresh_token 字段后添加阿里云盘的 refresh_token
 * 编辑 ali_share.yaml 文件
-  * 添加想要的分类
+  * 添加想要的分类, 多级目录用 `/` 分割即可
   * 在分类下级添加 `资源名: 阿里云资源链接` , 链接需要需要包含 folder
-* 修改完后执行 main.py 即可完成添加
+* 修改完后执行 python main.py 即可完成添加
 
 ### other
 

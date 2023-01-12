@@ -4,18 +4,20 @@ import json
 import sys
 import requests
 
-
+# 读取 yaml 文件
 def read_yaml(file_name):
     with open("./" + file_name, "r", encoding="utf-8") as f:
         content = yaml.load(f.read(), Loader=yaml.FullLoader)
     return content
 
 
+# 保存 token 字符串
 def save_token(conf):
     with open("./config.yaml", "w", encoding="utf-8") as f:
         yaml.dump(data=conf, stream=f)
 
 
+# 生成 alist 挂载阿里云盘的 json 字符串
 def build_data(mount_path, ali_url, conf):
     re_id = re.compile("https://www.aliyundrive.com/s/(.+)/folder")
     re_folder = re.compile("/folder/(.+)$")
@@ -44,6 +46,7 @@ def build_data(mount_path, ali_url, conf):
     return data
 
 
+# 检查配置文件是为默认值
 def check_conf(conf):
     if conf["url"] == "ALIST_URL":
         sys.exit("url 未配置, 请检查配置文件")
@@ -55,10 +58,11 @@ def check_conf(conf):
         sys.exit("refresh_token 未配置, 请检查配置文件")
 
 
+# 更新 token
 def update_token(login_api, headers, conf):
     print("token无效, 尝试重新获取...")
     res_data = requests.post(login_api, headers=headers, json=conf["auth"])
-    if res_data.json()["code"] == 200:   
+    if res_data.json()["code"] == 200:
         token = res_data.json()["data"]["token"]
         conf["token"] = token
         save_token(conf)
