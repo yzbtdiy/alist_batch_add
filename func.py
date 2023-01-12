@@ -1,6 +1,8 @@
 import yaml
 import re
 import json
+import sys
+import requests
 
 
 def read_yaml(file_name):
@@ -40,3 +42,27 @@ def build_data(mount_path, ali_url, conf):
     }
     data["addition"] = json.dumps(data["addition"], separators=(",", ":"))
     return data
+
+
+def check_conf(conf):
+    if conf["url"] == "ALIST_URL":
+        sys.exit("url 未配置, 请检查配置文件")
+    if (
+        conf["auth"]["username"] == "USERNAME" or conf["auth"]["password"] == "PASSWORD"
+    ) and (conf["token"] == "ALIST_TOKEN" or conf["token"] == ""):
+        sys.exit("token和用户密码至少要配置一项, 请检查配置文件")
+    if conf["refresh_token"] == "ALI_YUNPAN_REFRESH_TOKEN":
+        sys.exit("refresh_token 未配置, 请检查配置文件")
+
+
+def update_token(login_api, headers, conf):
+    print("token无效, 尝试重新获取...")
+    res_data = requests.post(login_api, headers=headers, json=conf["auth"])
+    if res_data.json()["code"] == 200:   
+        token = res_data.json()["data"]["token"]
+        conf["token"] = token
+        save_token(conf)
+        print("token已更新, 请重新运行此脚本")
+    else:
+        print(res_data.json())
+        sys.exit("token 更新失败, 请检查用户密码是否正确")

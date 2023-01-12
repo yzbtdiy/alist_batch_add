@@ -4,7 +4,7 @@
 
 **自用, Python 自学的练习项目**
 
-**此脚测试环境为 Python 3.11, Alist v3.5.1**
+**此脚测试环境为 Python 3.11, Alist v3.8.0**
 
 * 使用 Python 基于 requests 库的发送请求
 * 实现了自动获取 cookie 并保存

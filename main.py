@@ -1,5 +1,5 @@
 import requests
-from func import read_yaml, save_token, build_data
+from func import read_yaml, check_conf, build_data, update_token
 
 conf = read_yaml("config.yaml")
 ali_list = read_yaml("ali_share.yaml")
@@ -13,12 +13,15 @@ verify_headers = {
     "Authorization": conf["token"],
 }
 
-# some alist api
+# 拼接 api
 login_api = conf["url"] + "/api/auth/login"
 storage_list_api = conf["url"] + "/api/admin/storage/list"
 add_storage_api = conf["url"] + "/api/admin/storage/create"
 
-if conf["token"] != None:
+# 检查配置文件是否修改
+check_conf(conf)
+
+if conf["token"] != "ALIST_TOKEN" and conf["token"] != "":
     res = requests.get(storage_list_api, headers=verify_headers)
     if res.json()["code"] == 200:
         for category in ali_list.keys():
@@ -34,9 +37,6 @@ if conf["token"] != None:
                 else:
                     print(category + " " + share_name + " 添加失败, 请检查是否重复添加")
     else:
-        print("token无效, 尝试重新获取...")
-        res = requests.post(login_api, headers=headers, json=conf["auth"])
-        token = res.json()["data"]["token"]
-        conf["token"] = token
-        save_token(conf)
-        print("token已更新, 请重新运行此脚本")
+        update_token(login_api, headers, conf)
+else:
+    update_token(login_api, headers, conf)
